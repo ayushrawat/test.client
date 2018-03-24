@@ -43,6 +43,8 @@ public class Application {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
+        container.setConcurrentConsumers(50);
+        container.setPrefetchCount(30);
         container.setMessageListener(listenerAdapter);
         return container;
     }
