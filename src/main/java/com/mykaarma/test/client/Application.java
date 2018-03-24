@@ -29,7 +29,7 @@ public class Application {
 
     @Bean
     DirectExchange exchange() {
-        return new DirectExchange(topicExchangeName);
+        return new DirectExchange(topicExchangeName, true, false);
     }
 
     @Bean
