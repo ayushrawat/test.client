@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -30,7 +31,6 @@ import com.kaarya.utils.XMLHandler;
 
 public class XmlProcessorUtil {
 	
-	 private static ObjectPool<XPath> pool = new GenericObjectPool<XPath>(new XPathPoolFactory());
 	 private static Logger LOGGER = Logger.getLogger(XmlProcessorUtil.class); 
 	
 	/**
@@ -112,7 +112,7 @@ public class XmlProcessorUtil {
 		{
 		    XPath xpath = null;
 			try {
-				xpath = pool.borrowObject();
+				xpath = XPathFactory.newInstance().newXPath();
 			} catch (Exception e) {
 				LOGGER.error("Unable to borrow object from xpath pool.", e);
 				throw e;
@@ -125,12 +125,9 @@ public class XmlProcessorUtil {
 					returnNode.setTextContent(value!=null?value:"");
 			} catch (Exception e) {
 				LOGGER.error("This object has failed us. Discard it.", e);
-				pool.invalidateObject(xpath);
 				xpath=null;
 				throw e;
 			}
-			pool.returnObject(xpath);
-			
 		}
 	 
 	 public static void setAttributeValueInElement(Element ele, String attrName, String value)
@@ -143,7 +140,7 @@ public class XmlProcessorUtil {
 		{
 		 XPath xpath = null;
 			try {
-				xpath = pool.borrowObject();
+				xpath = XPathFactory.newInstance().newXPath();
 			} catch (Exception e) {
 				LOGGER.error("Unable to borrow object from xpath pool.", e);
 				throw e;
@@ -151,11 +148,9 @@ public class XmlProcessorUtil {
 			try {
 				XPathExpression expr = xpath.compile(path);
 				Node returnNode =(Node) expr.evaluate(node,XPathConstants.NODE);
-				pool.returnObject(xpath);
 				return returnNode;
 			} catch (Exception e) {
 				LOGGER.error("This object has failed us. Discard it.", e);
-				pool.invalidateObject(xpath);
 				xpath=null;
 				throw e;
 			}
@@ -166,7 +161,7 @@ public class XmlProcessorUtil {
 		{
 		    XPath xpath = null;
 			try {
-				xpath = pool.borrowObject();
+				xpath = XPathFactory.newInstance().newXPath();
 			} catch (Exception e) {
 				LOGGER.error("Unable to borrow object from xpath pool.", e);
 				throw e;
@@ -174,11 +169,9 @@ public class XmlProcessorUtil {
 			try {
 				XPathExpression expr = xpath.compile(path);
 				Node returnNode =(Node) expr.evaluate(node,XPathConstants.NODE);
-				pool.returnObject(xpath);
 				return returnNode!=null?(returnNode.getTextContent()!=null?returnNode.getTextContent():""):null;
 			} catch (Exception e) {
 				LOGGER.error("This object has failed us. Discard it.", e);
-				pool.invalidateObject(xpath);
 				xpath=null;
 				throw e;
 			}
@@ -188,7 +181,7 @@ public class XmlProcessorUtil {
 	 	{
 		    XPath xpath = null;
 			try {
-				xpath = pool.borrowObject();
+				xpath = XPathFactory.newInstance().newXPath();
 			} catch (Exception e) {
 				LOGGER.error("Unable to borrow object from xpath pool.", e);
 				throw e;
@@ -196,11 +189,9 @@ public class XmlProcessorUtil {
 			try {
 		 		XPathExpression expr = xpath.compile(path);
 		 		NodeList returnNodeList =(NodeList) expr.evaluate(node,XPathConstants.NODESET);
-		 		pool.returnObject(xpath);
 		 		return returnNodeList;
 		 	} catch (Exception e) {
 				LOGGER.error("This object has failed us. Discard it.", e);
-				pool.invalidateObject(xpath);
 				xpath=null;
 				throw e;
 			}
