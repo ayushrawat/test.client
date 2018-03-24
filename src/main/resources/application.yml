@@ -1,6 +1,33 @@
 spring.application.name: test.client
 server.port: 6666
 
+spring.rabbitmq.host: localhost
+spring.rabbitmq.username: guest
+spring.rabbitmq.password: guest
+
+mongo.userName: admin
+mong.credDb: admin
+mongo.dataDb: kaarmadb
+mongo.password: password
+mongo.replicaHost1: mongo
+mongo.replicaHost2: mongo
+mongo.replicaPort1: 27011
+mongo.replicaPort2: 27012
+mongo.arbiterHost: mongo
+mongo.arbiterPort: 27013
+mongo.W: 1
+mongo.J: true
+mongo.fsync: true
+mongo.connectionsPerHost: 8
+mongo.connectTimeout: 20000
+mongo.maxWaitTime: 20000
+mongo.socketKeepAlive: true
+mongo.socketTimeout: 30000
+mongo.threadsAllowedToBlockForConnectionMultiplier: 4
+
+---
+spring.profiles: prod
+
 mongo.userName: kaarma2015prod
 mong.credDb: admin
 mongo.dataDb: kaarmadb
@@ -12,6 +39,7 @@ mongo.replicaPort2: 27018
 mongo.arbiterHost: mongo-arb1.aws.kaar-ma.com
 mongo.arbiterPort: 27019
 mongo.W: 1
+mongo.J: true
 mongo.fsync: true
 mongo.connectionsPerHost: 8
 mongo.connectTimeout: 20000
@@ -19,6 +47,7 @@ mongo.maxWaitTime: 20000
 mongo.socketKeepAlive: true
 mongo.socketTimeout: 30000
 mongo.threadsAllowedToBlockForConnectionMultiplier: 4
+
 spring.rabbitmq.host: lb09-dms-rmq.mykaarma.com
 spring.rabbitmq.port: 5672
 spring.rabbitmq.username: kaarmaapp

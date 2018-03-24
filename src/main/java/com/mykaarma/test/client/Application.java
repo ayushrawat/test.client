@@ -8,12 +8,14 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.mykaarma.test.client.runner.Receiver;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 public class Application {
 	
 	static final String topicExchangeName = "kaarma.dms.entity.update.exchange";
