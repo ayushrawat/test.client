@@ -14,6 +14,8 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
+import com.mongodb.ReadConcern;
+import com.mongodb.ReadConcernLevel;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
@@ -83,18 +85,16 @@ public class MongoConfig {
 		list.add(new ServerAddress(replicaHost2,replicaPort2));
 		list.add(new ServerAddress(arbiterHost, arbiterPort));
 		
-		WriteConcern writeConcern = new WriteConcern();
-		writeConcern.withW(W);
-		writeConcern.withFsync(fsync);
+		WriteConcern writeConcern = new WriteConcern(W, maxWaitTime);
 		ReadPreference readPreference = ReadPreference.primaryPreferred();
+		ReadConcern readConcern = new ReadConcern(ReadConcernLevel.LINEARIZABLE);
 		MongoClientOptions options = MongoClientOptions.builder().
 				connectionsPerHost(connectionPerHost).
 				connectTimeout(connectTimeout).
 				maxWaitTime(maxWaitTime).
-				socketKeepAlive(socketKeepAlive).
 				socketTimeout(socketTimeOut).
 			    threadsAllowedToBlockForConnectionMultiplier(threadsAllowedToBlockForConnectionMultiplier).
-			    writeConcern(writeConcern).
+			    writeConcern(writeConcern).readConcern(readConcern).
 			    readPreference(readPreference).build();
 		MongoClient mongoClient = new MongoClient(list,Arrays.asList(credential),options);
 		
