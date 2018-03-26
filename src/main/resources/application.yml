@@ -24,31 +24,3 @@ mongo.maxWaitTime: 20000
 mongo.socketKeepAlive: true
 mongo.socketTimeout: 30000
 mongo.threadsAllowedToBlockForConnectionMultiplier: 4
-
----
-spring.profiles: prod
-
-mongo.userName: kaarma2015prod
-mong.credDb: admin
-mongo.dataDb: kaarmadb
-mongo.password: C6WnA4nRR48JcKsM
-mongo.replicaHost1: mongo-doc01.nvirg.aws.kaar-ma.com
-mongo.replicaHost2: mongo-doc02.nvirg.aws.kaar-ma.com
-mongo.replicaPort1: 27017
-mongo.replicaPort2: 27018
-mongo.arbiterHost: mongo-arb1.aws.kaar-ma.com
-mongo.arbiterPort: 27019
-mongo.W: 1
-mongo.J: true
-mongo.fsync: true
-mongo.connectionsPerHost: 8
-mongo.connectTimeout: 20000
-mongo.maxWaitTime: 20000
-mongo.socketKeepAlive: true
-mongo.socketTimeout: 30000
-mongo.threadsAllowedToBlockForConnectionMultiplier: 4
-
-spring.rabbitmq.host: lb09-dms-rmq.mykaarma.com
-spring.rabbitmq.port: 5672
-spring.rabbitmq.username: kaarmaapp
-spring.rabbitmq.password: 513CE3BDB39860E9779C2AEB
